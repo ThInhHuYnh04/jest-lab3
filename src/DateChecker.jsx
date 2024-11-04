@@ -2,7 +2,18 @@ import React, { useState } from "react";
 
 // Import the functions
 export function daysInMonth(year, month) {
-  if (month < 1 || month > 12) return 0;
+  if (!year || !month || isNaN(year) || isNaN(month)) {
+    alert("Incorrect format: Year and month must be numbers.");
+    return 0;
+  }
+  if (year < 1000 || year > 3000) {
+    alert("Out of range: Year must be between 1000 and 3000.");
+    return 0;
+  }
+  if (month < 1 || month > 12) {
+    alert("Out of range: Month must be between 1 and 12.");
+    return 0;
+  }
   if ([1, 3, 5, 7, 8, 10, 12].includes(month)) return 31;
   if ([4, 6, 9, 11].includes(month)) return 30;
   if (month === 2) {
@@ -16,10 +27,27 @@ export function daysInMonth(year, month) {
 }
 
 export function isValidDate(year, month, day) {
-  if (month < 1 || month > 12) return false;
-  if (day < 1) return false;
+  if (!year || !month || !day || isNaN(year) || isNaN(month) || isNaN(day)) {
+    alert("Incorrect format: Year, month, and day must be numbers.");
+    return false;
+  }
+  if (year < 1000 || year > 3000) {
+    alert("Out of range: Year must be between 1000 and 3000.");
+    return false;
+  }
+  if (month < 1 || month > 12) {
+    alert("Out of range: Month must be between 1 and 12.");
+    return false;
+  }
+  if (day < 1) {
+    alert("Out of range: Day must be greater than 0.");
+    return false;
+  }
   const maxDays = daysInMonth(year, month);
-  if (day > maxDays) return false;
+  if (day > maxDays) {
+    alert(`Out of range: Day must be between 1 and ${maxDays}.`);
+    return false;
+  }
   return true;
 }
 
@@ -38,10 +66,11 @@ function DateChecker() {
   };
 
   const handleCheckDaysInMonth = () => {
-    if (year === "") {
-      setIsValid(false);
+    if (year === "" || month === "") {
+      alert("Year and month must be filled.");
       return;
     }
+    
     const yearInt = parseInt(year, 10);
     const monthInt = parseInt(month, 10);
     setDaysInMonthResult(daysInMonth(yearInt, monthInt));
