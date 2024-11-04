@@ -21,11 +21,20 @@ describe('daysInMonth', () => {
     expect(daysInMonth(2023, 12)).toBe(31);
   });
 
-  test('returns 0 for invalid month', () => {
+  test('returns 0 for an invalid month', () => {
     expect(daysInMonth(2023, 13)).toBe(0);
   });
 
-  test('returns 0 for month less than 1', () => {
-    expect(daysInMonth(2023, 0)).toBe(0);
+  test('returns 0 for a year out of range', () => {
+    expect(daysInMonth(999, 1)).toBe(0);
+    expect(daysInMonth(3001, 1)).toBe(0);
+  });
+
+  test('returns 0 for non-numeric inputs', () => {
+    expect(daysInMonth('year', 'month')).toBe(0);
+  });
+
+  test('returns 0 for empty inputs', () => {
+    expect(daysInMonth('', '')).toBe(0);
   });
 });

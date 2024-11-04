@@ -17,12 +17,12 @@ describe('isValidDate', () => {
     expect(isValidDate(2023, 2, 29)).toBe(false);
   });
 
-  test('returns true for February 29 in a leap year', () => {
-    expect(isValidDate(2024, 2, 29)).toBe(true);
-  });
-
   test('returns false for February 29 in a non-leap year', () => {
     expect(isValidDate(2023, 2, 29)).toBe(false);
+  });
+
+  test('returns true for February 29 in a leap year', () => {
+    expect(isValidDate(2024, 2, 29)).toBe(true);
   });
 
   test('returns true for the last day of a month with 31 days', () => {
@@ -31,5 +31,18 @@ describe('isValidDate', () => {
 
   test('returns true for the last day of a month with 30 days', () => {
     expect(isValidDate(2023, 4, 30)).toBe(true);
+  });
+
+  test('returns false for a year out of range', () => {
+    expect(isValidDate(999, 1, 15)).toBe(false);
+    expect(isValidDate(3001, 1, 15)).toBe(false);
+  });
+
+  test('returns false for non-numeric inputs', () => {
+    expect(isValidDate('year', 'month', 'day')).toBe(false);
+  });
+
+  test('returns false for empty inputs', () => {
+    expect(isValidDate('', '', '')).toBe(false);
   });
 });
